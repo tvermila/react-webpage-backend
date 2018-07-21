@@ -4,10 +4,7 @@ require('dotenv').config()
 
 mailRouter.post('/', async (request, response) => {
   try {
-    const body = request.body
-    const email = body.email
-    const name = body.name
-    const message = body.message
+    const { email, name, message } = request.body
 
     let transporter = nodemailer.createTransport({
       service: 'Gmail',
