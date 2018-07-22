@@ -32,7 +32,7 @@ mailRouter.post('/', async (request, response) => {
     transporter.sendMail(mailData, function (err, info) {
       if(err) {
         console.log('Lähetys epäonnistui:', err)
-        return response.send(err)
+        return response.status(401).send(err)
       } else {
         console.log('Lähetys onnistui', info)
         return response.send('Lähetys onnistui!')
