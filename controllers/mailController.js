@@ -10,9 +10,9 @@ mailRouter.post('/', async (request, response) => {
       service: 'Gmail',
       auth: {
         type: 'OAuth2',
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        redirect_uris:['http://localhost:3001','https://developers.google.com/oauthplayground']
+        clientId: process.env.CLIENT_ID2,
+        clientSecret: process.env.CLIENT_SECRET2,
+        redirect_uris:['https://developers.google.com/oauthplayground']
       }
     })
 
@@ -23,24 +23,24 @@ mailRouter.post('/', async (request, response) => {
       text: message,
       html: `<div>${message}</div>`,
       auth: {
-        user: process.env.USER,
-        refreshToken: process.env.REFRESH_TOKEN,
-        accessToken: process.env.ACCESS_TOKEN
+        user: process.env.USER2,
+        refreshToken: process.env.REFRESH_TOKEN2,
+        accessToken: process.env.ACCESS_TOKEN2
       }
     }
 
     transporter.sendMail(mailData, function (err, info) {
       if(err) {
         console.log('Lähetys epäonnistui:', err)
-        response.send(err)
+        return response.send(err)
       } else {
         console.log('Lähetys onnistui', info)
-        response.send('Lähetys onnistui!')
+        return response.send('Lähetys onnistui!')
       }
     })
   } catch (exception) {
     console.log(exception)
-    response.status(500).json({ error: 'something went wrong.. ' })
+    return response.status(500).json({ error: 'something went wrong.. ' })
   }
 })
 
