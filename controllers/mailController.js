@@ -2,9 +2,11 @@ const mailRouter = require('express').Router()
 const nodemailer = require('nodemailer')
 require('dotenv').config()
 
-mailRouter.post('/', async (request, response) => {
+mailRouter.post('/api/mail', (request, response) => {
   try {
     const { email, name, message } = request.body
+
+    if(!email || !name || !message ) return response.status(400).send('email, nimi tai viesti puuttuu!')
 
     let transporter = nodemailer.createTransport({
       service: 'Gmail',
@@ -29,13 +31,13 @@ mailRouter.post('/', async (request, response) => {
       }
     }
 
-    transporter.sendMail(mailData, function (err, info) {
+    transporter.sendMail(mailData, (err, info) => {
       if(err) {
         console.log('Lähetys epäonnistui:', err)
         return response.status(401).send(err)
       } else {
         console.log('Lähetys onnistui', info)
-        return response.send('Lähetys onnistui!')
+        return response.status(200).json({ success: 'Lähetys onnistui!', email, name, message })
       }
     })
   } catch (exception) {
