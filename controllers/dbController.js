@@ -1,6 +1,6 @@
 const dbRouter = require('express').Router()
 const nano = require('nano')(process.env.DB_URL)
-const formatter = require('../utils/formatter')
+const { formatter } = require('../utils/formatter')
 require('dotenv').config()
 
 dbRouter.get('/history', async (req, res) => {

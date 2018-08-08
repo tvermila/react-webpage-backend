@@ -13,6 +13,11 @@ app.use(bodyParser.json())
 app.use(logger)
 app.use('/api/db', dbRouter)
 app.post('/api/mail', mailRouter)
+
+app.get('/', (req, res) => {
+  res.sendFile(process.env.INDEX_HTML)
+})
+
 app.get('/', rootRouter)
 app.post('/', rootRouter)
 

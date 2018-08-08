@@ -6,9 +6,9 @@ mailRouter.post('/api/mail', (request, response) => {
   try {
     const { email, name, message } = request.body
 
-    if(!email || !name || !message ) return response.status(400).send('email, nimi tai viesti puuttuu!')
+    if(!email || !name || !message ) return response.status(400).send('email, name or message missing!')
 
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
         type: 'OAuth2',
