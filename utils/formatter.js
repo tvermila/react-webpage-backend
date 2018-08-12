@@ -4,7 +4,9 @@ exports.formatter = (data) => {
     formattedArray.push({
       id: el.doc._id,
       title: el.doc.title,
-      description: el.doc.description
+      otsikko: el.doc.otsikko || null,
+      description: el.doc.description,
+      kuvaus: el.doc.kuvaus || null
     })
   })
   return formattedArray
